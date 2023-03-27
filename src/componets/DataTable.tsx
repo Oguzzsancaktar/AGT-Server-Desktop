@@ -7,101 +7,71 @@ const data = [
   {
     key: '1',
     machine: 'Machine A',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine A</div>,
   },
   {
     key: '2',
     machine: 'Machine B',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine B</div>,
   },
   {
     key: '3',
     machine: 'Machine C',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine C</div>,
   },
   {
     key: '4',
     machine: 'Machine D',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine D</div>,
   },
   {
     key: '5',
     machine: 'Machine E',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine E</div>,
   },
   {
     key: '6',
     machine: 'Machine F',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine F</div>,
   },
   {
     key: '7',
-
     machine: 'Machine G',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine G</div>,
   },
   {
     key: '8',
     machine: 'Machine H',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine H</div>,
   },
   {
     key: '9',
     machine: 'Machine I',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine I</div>,
   },
   {
     key: '10',
     machine: 'Machine J',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine J</div>,
   },
   {
     key: '11',
     machine: 'Machine K',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine K</div>,
   },
   {
     key: '12',
     machine: 'Machine L',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine L</div>,
   },
   {
     key: '13',
     machine: 'Machine M',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
-
     customElements: <div>Some custom elements for Machine M</div>,
   },
   {
     key: '14',
     machine: 'Machine N',
-    dataInformation: 'icon',
-    cloudConnection: 'icon',
     customElements: <div>Some custom elements for Machine N</div>,
   },
 ];
@@ -110,8 +80,8 @@ const data = [
 const columns: ColumnsType<{
   key: string;
   machine: string;
-  dataInformation: string;
-  cloudConnection: string;
+  dataInformation: React.ReactElement;
+  cloudConnection: React.ReactElement;
   customElements: React.ReactElement;
 }> = [
   {
@@ -171,7 +141,13 @@ function DataTable() {
         <Table
           className="container h-full rounded"
           columns={columns}
-          dataSource={data}
+          dataSource={data.map((d) => {
+            return {
+              ...d,
+              dataInformation: <img src={Icons.infoIcon} alt="expand" />,
+              cloudConnection: <img src={Icons.cloudGrayIcon} alt="expand" />,
+            };
+          })}
           rowClassName="cursor-pointer"
           pagination={false}
           scroll={{ y: height }}
