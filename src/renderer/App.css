@@ -40,9 +40,41 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
+
+html{
+  font-size: calc(100vw / 1920 * 10) !important;
+}
+
+
+@media only screen and (max-width: 1600px) {
+  html {
+    font-size: calc(100vw / 1600 * 12) !important;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  html {
+    font-size: calc(100vw / 1400 * 9) !important;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: calc(100vw / 1000 * 12) !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: calc(100vw / 600 * 10) !important;
+  }
+}
+
 body {
   background-color: var(--lightGray);
 	line-height: 1;
+
+
 }
 
 ol, ul {
@@ -114,6 +146,15 @@ table {
   font-weight: bold;
 }
 
+.text-27{
+  font-size: 2.7rem;
+  line-height: 2rem;
+}
+
+.text-19{
+  font-size: 1.9rem;
+  line-height: 1.4rem;
+}
 /* Colors */
 
 .rounded{
@@ -138,6 +179,10 @@ table {
 
 .border-lightGray{
   border-color: var(--lightGray);
+}
+
+.border-white{
+  border-color: var(--white);
 }
 
 .bg-none{
@@ -215,4 +260,36 @@ table {
 }
 .button-disable-before-button-wrapper::before{
   display: none!important;
+}
+
+
+.ant-table-cell{
+  color: var(--darkBlue);
+}
+
+
+/* Views */
+
+/*
+Login
+*/
+
+.login__container{
+  background-color: var(--lightGray);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__form{
+  align-items: center;
+  background-color: var(--darkBlue);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 6rem 8rem;
+  width: 65rem;
+  justify-content: center;
 }

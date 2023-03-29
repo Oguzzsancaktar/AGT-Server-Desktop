@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ConnectionBar from 'componets/ConnectionBar';
 import Header from 'componets/Header';
 import DataTable from 'componets/DataTable';
+import selectAppRoute from 'utils/appRouteUtils';
+import Cookies from 'js-cookie';
+import { useAuthApiContext } from 'contexts/authContext';
+import { useNavigate } from 'react-router-dom';
 
+// TODO - Refactor - Create HOC for Handling views
 function DashboardView() {
+  // Context.
+  const { login } = useAuthApiContext();
+  // Hooks.
+  const navigate = useNavigate();
+  // State.
+  const [token, setToken] = useState(Cookies.get('token'));
+
+  console.log('token', token);
+
+  // LifeCycle.
+  useEffect(() => {
+    if (!token) {
+      navigate(selectAppRoute('login'));
+    } else {
+      login(token);
+    }
+  }, [token, login, navigate]);
   return (
     <div>
       <Header />

@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from 'antd/es/input/Input';
-import Icons from 'constants/icons';
 import { Button } from 'antd/es/radio';
+import getIcon from 'constants/icons';
 
 function InputPrefix() {
   return (
@@ -10,7 +10,7 @@ function InputPrefix() {
       style={{ marginRight: '30px' }}
     >
       <span style={{ marginRight: '10px', height: '17px' }}>
-        <img src={Icons.wordIcon} alt="World Icon" />
+        <img src={getIcon('world')} alt="World Icon" />
       </span>
       <span style={{ color: 'white', fontWeight: 'bold' }}>URL</span>
     </div>
@@ -33,7 +33,6 @@ function ConnectionBar() {
           classes={{ input: 'bg-none' }}
           placeholder="Enter connection URL..."
         />
-
         <Button
           className=" bg-none text-center text-bold text-white flex-col justify-center"
           style={{

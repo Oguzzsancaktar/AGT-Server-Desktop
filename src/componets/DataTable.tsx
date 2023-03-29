@@ -1,7 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import { Table, Collapse } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import Icons from 'constants/icons';
+import getIcon from 'constants/icons';
 
 const data = [
   {
@@ -111,8 +111,8 @@ const renderCollapsableRow = (record: any) => {
     <Collapse
       expandIcon={({ isActive }) => (
         <img
-          src={isActive ? Icons.cloudBlueIcon : Icons.cloudGreenIcon}
-          alt="expand"
+          src={isActive ? getIcon('chevronBottom') : getIcon('chevronRight')}
+          alt="c"
         />
       )}
     >
@@ -137,39 +137,37 @@ function DataTable() {
       className="wrapper h-full bg-white "
       style={{ paddingTop: '30px', paddingBottom: '30px' }}
     >
-      <div className="bordered border-darkBlue">
-        <Table
-          className="container h-full rounded"
-          columns={columns}
-          dataSource={data.map((d) => {
-            return {
-              ...d,
-              dataInformation: <img src={Icons.infoIcon} alt="expand" />,
-              cloudConnection: <img src={Icons.cloudGrayIcon} alt="expand" />,
-            };
-          })}
-          rowClassName="cursor-pointer"
-          pagination={false}
-          scroll={{ y: height }}
-          style={{ height: '100%' }}
-          expandable={{
-            expandedRowRender: renderCollapsableRow,
-            expandIcon: ({ expanded, onExpand, record }) => (
-              <div
-                style={{ width: '40px', cursor: 'pointer' }}
-                onClick={(e) => onExpand(record, e)}
-              >
-                {expanded ? (
-                  <img src={Icons.chevronBottomIcon} alt="expand" />
-                ) : (
-                  <img src={Icons.chevronRightIcon} alt="expand" />
-                )}
-              </div>
-            ),
-            expandRowByClick: true,
-          }}
-        />
-      </div>
+      <Table
+        className="container h-full rounded text-darkBlue bordered border-darkBlue"
+        columns={columns}
+        dataSource={data.map((d) => {
+          return {
+            ...d,
+            dataInformation: <img src={getIcon('info')} alt="data" />,
+            cloudConnection: <img src={getIcon('cloudGray')} alt="cloud" />,
+          };
+        })}
+        rowClassName="cursor-pointer"
+        pagination={false}
+        scroll={{ y: height }}
+        style={{ height: '100%' }}
+        expandable={{
+          expandedRowRender: renderCollapsableRow,
+          expandIcon: ({ expanded, onExpand, record }) => (
+            <div
+              style={{ width: '40px', cursor: 'pointer' }}
+              onClick={(e) => onExpand(record, e)}
+            >
+              {expanded ? (
+                <img src={getIcon('chevronBottom')} alt="expand" />
+              ) : (
+                <img src={getIcon('chevronRight')} alt="expand" />
+              )}
+            </div>
+          ),
+          expandRowByClick: true,
+        }}
+      />
     </div>
   );
 }
