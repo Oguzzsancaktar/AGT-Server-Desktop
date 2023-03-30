@@ -1,0 +1,107 @@
+[
+  {
+    "nodeId": "i=2253",
+    "name": "Server",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=_AdvancedTags",
+    "name": "_AdvancedTags",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_ConnectionSharing",
+    "name": "_ConnectionSharing",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_CustomAlarms",
+    "name": "_CustomAlarms",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=_DataLogger",
+    "name": "_DataLogger",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=_EFMExporter",
+    "name": "_EFMExporter",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_IDF_for_Splunk",
+    "name": "_IDF_for_Splunk",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_IoT_Gateway",
+    "name": "_IoT_Gateway",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_LocalHistorian",
+    "name": "_LocalHistorian",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_Profile_Library",
+    "name": "_Profile_Library",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_Redundancy",
+    "name": "_Redundancy",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_Scheduler",
+    "name": "_Scheduler",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_SecurityPolicies",
+    "name": "_SecurityPolicies",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_SNMP Agent",
+    "name": "_SNMP Agent",
+    "hasChild": false
+  },
+  {
+    "nodeId": "ns=2;s=_System",
+    "name": "_System",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=_ThingWorx",
+    "name": "_ThingWorx",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=Channel1",
+    "name": "Channel1",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=Channel2",
+    "name": "Channel2",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=Channel3",
+    "name": "Channel3",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=Data Type Examples",
+    "name": "Data Type Examples",
+    "hasChild": true
+  },
+  {
+    "nodeId": "ns=2;s=Simulation Examples",
+    "name": "Simulation Examples",
+    "hasChild": true
+  }
+]

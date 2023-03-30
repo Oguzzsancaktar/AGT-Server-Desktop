@@ -267,7 +267,12 @@ table {
   color: var(--darkBlue);
 }
 
-
+.ant-table-container,
+.ant-table.ant-table-fixed-header,
+.ant-spin-container,
+.ant-spin-nested-loading{
+  height: 100%;
+}
 /* Views */
 
 /*

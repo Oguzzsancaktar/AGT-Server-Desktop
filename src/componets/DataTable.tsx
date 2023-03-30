@@ -1,107 +1,65 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { Table, Collapse } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import getIcon from 'constants/icons';
+import json from 'data/objects.json';
 
-const data = [
+interface DataType {
+  key: string;
+  nodeId: string;
+  name: string;
+  hasChild: string;
+}
+const temp = [
   {
-    key: '1',
-    machine: 'Machine A',
-    customElements: <div>Some custom elements for Machine A</div>,
+    nodeId: 'ns=2;s=Channel3._Statistics',
+    name: '_Statistics',
+    hasChild: true,
   },
   {
-    key: '2',
-    machine: 'Machine B',
-    customElements: <div>Some custom elements for Machine B</div>,
+    nodeId: 'ns=2;s=Channel3._System',
+    name: '_System',
+    hasChild: true,
   },
   {
-    key: '3',
-    machine: 'Machine C',
-    customElements: <div>Some custom elements for Machine C</div>,
-  },
-  {
-    key: '4',
-    machine: 'Machine D',
-    customElements: <div>Some custom elements for Machine D</div>,
-  },
-  {
-    key: '5',
-    machine: 'Machine E',
-    customElements: <div>Some custom elements for Machine E</div>,
-  },
-  {
-    key: '6',
-    machine: 'Machine F',
-    customElements: <div>Some custom elements for Machine F</div>,
-  },
-  {
-    key: '7',
-    machine: 'Machine G',
-    customElements: <div>Some custom elements for Machine G</div>,
-  },
-  {
-    key: '8',
-    machine: 'Machine H',
-    customElements: <div>Some custom elements for Machine H</div>,
-  },
-  {
-    key: '9',
-    machine: 'Machine I',
-    customElements: <div>Some custom elements for Machine I</div>,
-  },
-  {
-    key: '10',
-    machine: 'Machine J',
-    customElements: <div>Some custom elements for Machine J</div>,
-  },
-  {
-    key: '11',
-    machine: 'Machine K',
-    customElements: <div>Some custom elements for Machine K</div>,
-  },
-  {
-    key: '12',
-    machine: 'Machine L',
-    customElements: <div>Some custom elements for Machine L</div>,
-  },
-  {
-    key: '13',
-    machine: 'Machine M',
-    customElements: <div>Some custom elements for Machine M</div>,
-  },
-  {
-    key: '14',
-    machine: 'Machine N',
-    customElements: <div>Some custom elements for Machine N</div>,
+    nodeId: 'ns=2;s=Channel3.Device1',
+    name: 'Device1',
+    hasChild: true,
   },
 ];
 
+const createExpandableRow = ({ expanded, onExpand, record }: any) => {
+  return (
+    <div
+      style={{ width: '40px', cursor: 'pointer' }}
+      onClick={(e) => onExpand(record, e)}
+      aria-hidden="true"
+    >
+      {expanded ? (
+        <img src={getIcon('chevronBottom')} alt="expand" />
+      ) : (
+        <img src={getIcon('chevronRight')} alt="expand" />
+      )}
+    </div>
+  );
+};
+
 // Define the columns for the table
-const columns: ColumnsType<{
-  key: string;
-  machine: string;
-  dataInformation: React.ReactElement;
-  cloudConnection: React.ReactElement;
-  customElements: React.ReactElement;
-}> = [
+const columns: ColumnsType<DataType> = [
   {
     title: 'Machine',
-    dataIndex: 'machine',
-    key: 'machine',
+    dataIndex: 'name',
   },
   {
     title: 'Data Information',
-    dataIndex: 'dataInformation',
-    key: 'dataInformation',
-    width: '200px',
-    align: 'center',
+    className: 'column-money',
+    align: 'right',
+    width: '180px',
   },
   {
     title: 'Cloud Connection',
-    dataIndex: 'cloudConnection',
-    key: 'cloudConnection',
-    width: '200px',
-    align: 'center',
+    align: 'right',
+    width: '180px',
   },
 ];
 
@@ -109,6 +67,7 @@ const columns: ColumnsType<{
 const renderCollapsableRow = (record: any) => {
   return (
     <Collapse
+      style={{ marginLeft: '40px' }}
       expandIcon={({ isActive }) => (
         <img
           src={isActive ? getIcon('chevronBottom') : getIcon('chevronRight')}
@@ -116,55 +75,67 @@ const renderCollapsableRow = (record: any) => {
         />
       )}
     >
-      {record.customElements}
+      {temp.map((d) => {
+        return (
+          <Collapse.Panel header={d.name} key={d.nodeId}>
+            <div className="flex-row justify-between items-center">
+              <p>{d.nodeId}</p>
+
+              <div className="flex-row">
+                <span
+                  className="flex-row items-center justify-center"
+                  style={{ width: '140px' }}
+                >
+                  <img
+                    src={getIcon('info')}
+                    alt="data"
+                    style={{ marginRight: '20px' }}
+                  />
+                </span>
+                <span
+                  className="flex-row items-center justify-center"
+                  style={{ width: '140px' }}
+                >
+                  <img
+                    src={getIcon('cloudGray')}
+                    alt="cloud"
+                    style={{ marginLeft: '70px' }}
+                  />
+                </span>
+              </div>
+            </div>
+          </Collapse.Panel>
+        );
+      })}
     </Collapse>
   );
 };
 
 // Define a function to render the table component
 function DataTable() {
-  const tableRef = React.useRef(null);
-  const [height, setHeight] = React.useState(500);
-
-  useLayoutEffect(() => {
-    if (tableRef?.current && tableRef?.current?.clientHeight) {
-      setHeight(tableRef?.current.clientHeight - 55 - 60 || 500);
-    }
-  }, []);
   return (
     <div
-      ref={tableRef}
       className="wrapper h-full bg-white "
       style={{ paddingTop: '30px', paddingBottom: '30px' }}
     >
       <Table
         className="container h-full rounded text-darkBlue bordered border-darkBlue"
         columns={columns}
-        dataSource={data.map((d) => {
+        dataSource={json.map((d, i) => {
           return {
+            key: i.toString(),
             ...d,
-            dataInformation: <img src={getIcon('info')} alt="data" />,
-            cloudConnection: <img src={getIcon('cloudGray')} alt="cloud" />,
+            // dataInformation: <img src={getIcon('info')} alt="data" />,
+            // cloudConnection: <img src={getIcon('cloudGray')} alt="cloud" />,
           };
         })}
         rowClassName="cursor-pointer"
         pagination={false}
-        scroll={{ y: height }}
+        scroll={{ y: 'calc(100% - 55px)' }}
         style={{ height: '100%' }}
         expandable={{
           expandedRowRender: renderCollapsableRow,
-          expandIcon: ({ expanded, onExpand, record }) => (
-            <div
-              style={{ width: '40px', cursor: 'pointer' }}
-              onClick={(e) => onExpand(record, e)}
-            >
-              {expanded ? (
-                <img src={getIcon('chevronBottom')} alt="expand" />
-              ) : (
-                <img src={getIcon('chevronRight')} alt="expand" />
-              )}
-            </div>
-          ),
+          expandIcon: createExpandableRow,
           expandRowByClick: true,
         }}
       />
