@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Collapse } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import getIcon from 'constants/icons';
-import json from 'data/objects.json';
+import { getOpcClientObjecthildrens, getOpcClientObjects } from 'api/services';
 
 interface DataType {
   key: string;
@@ -10,23 +10,67 @@ interface DataType {
   name: string;
   hasChild: string;
 }
-const temp = [
-  {
-    nodeId: 'ns=2;s=Channel3._Statistics',
-    name: '_Statistics',
-    hasChild: true,
-  },
-  {
-    nodeId: 'ns=2;s=Channel3._System',
-    name: '_System',
-    hasChild: true,
-  },
-  {
-    nodeId: 'ns=2;s=Channel3.Device1',
-    name: 'Device1',
-    hasChild: true,
-  },
-];
+
+function ChildCollapse({ record }: any) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await getOpcClientObjecthildrens(record.nodeId);
+      setData(data);
+    }
+    fetchData();
+  }, [record]);
+
+  return (
+    <Collapse
+      style={{ marginLeft: '40px' }}
+      expandIcon={({ isActive }) => (
+        <img
+          src={isActive ? getIcon('chevronBottom') : getIcon('chevronRight')}
+          alt="c"
+        />
+      )}
+    >
+      {data.map((d) => {
+        return (
+          <Collapse.Panel header={d.name} key={d.nodeId}>
+            {!d.hasChild ? (
+              <div className="flex-row justify-between items-center">
+                <p>{d.nodeId}</p>
+
+                <div className="flex-row">
+                  <span
+                    className="flex-row items-center justify-center"
+                    style={{ width: '140px' }}
+                  >
+                    <img
+                      src={getIcon('info')}
+                      alt="data"
+                      style={{ marginRight: '20px' }}
+                    />
+                  </span>
+                  <span
+                    className="flex-row items-center justify-center"
+                    style={{ width: '140px' }}
+                  >
+                    <img
+                      src={getIcon('cloudGray')}
+                      alt="cloud"
+                      style={{ marginLeft: '70px' }}
+                    />
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <ChildCollapse record={d} />
+            )}
+          </Collapse.Panel>
+        );
+      })}
+    </Collapse>
+  );
+}
 
 const createExpandableRow = ({ expanded, onExpand, record }: any) => {
   return (
@@ -65,54 +109,21 @@ const columns: ColumnsType<DataType> = [
 
 // Define a function to render the collapsable row
 const renderCollapsableRow = (record: any) => {
-  return (
-    <Collapse
-      style={{ marginLeft: '40px' }}
-      expandIcon={({ isActive }) => (
-        <img
-          src={isActive ? getIcon('chevronBottom') : getIcon('chevronRight')}
-          alt="c"
-        />
-      )}
-    >
-      {temp.map((d) => {
-        return (
-          <Collapse.Panel header={d.name} key={d.nodeId}>
-            <div className="flex-row justify-between items-center">
-              <p>{d.nodeId}</p>
-
-              <div className="flex-row">
-                <span
-                  className="flex-row items-center justify-center"
-                  style={{ width: '140px' }}
-                >
-                  <img
-                    src={getIcon('info')}
-                    alt="data"
-                    style={{ marginRight: '20px' }}
-                  />
-                </span>
-                <span
-                  className="flex-row items-center justify-center"
-                  style={{ width: '140px' }}
-                >
-                  <img
-                    src={getIcon('cloudGray')}
-                    alt="cloud"
-                    style={{ marginLeft: '70px' }}
-                  />
-                </span>
-              </div>
-            </div>
-          </Collapse.Panel>
-        );
-      })}
-    </Collapse>
-  );
+  return <ChildCollapse record={record} />;
 };
 
 // Define a function to render the table component
 function DataTable() {
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await getOpcClientObjects();
+      setTableData(data);
+    }
+    fetchData();
+  }, []);
+
   return (
     <div
       className="wrapper h-full bg-white "
@@ -121,7 +132,7 @@ function DataTable() {
       <Table
         className="container h-full rounded text-darkBlue bordered border-darkBlue"
         columns={columns}
-        dataSource={json.map((d, i) => {
+        dataSource={tableData.map((d, i) => {
           return {
             key: i.toString(),
             ...d,

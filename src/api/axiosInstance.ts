@@ -3,8 +3,8 @@ import Cookies from 'js-cookie';
 
 const urls = {
   test: `http://localhost:3000`,
-  development: 'https://smartdocsapi.azurewebsites.net/api',
-  production: 'https://smartdocsapi.azurewebsites.net/api',
+  development: 'https://localhost:7242/api',
+  production: 'https://localhost:7242/api',
 };
 
 console.log('object', Cookies.get('token'));
@@ -13,7 +13,7 @@ const axiosInstance = Axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${Cookies.get('token')}`,
+    // Authorization: `Bearer ${Cookies.get('token')}`,
   },
 });
 

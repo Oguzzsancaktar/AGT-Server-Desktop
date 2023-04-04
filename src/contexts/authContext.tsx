@@ -5,6 +5,7 @@ import IUserToken from '../models/entities/auth/IUserToken';
 
 // Libs.
 import axiosInstance from '../api/axiosInstance';
+import { opcClientConnect } from 'api/services';
 
 const AuthStateContext = createContext<{ loggedUser: IUserToken | null }>({
   loggedUser: null,
@@ -42,8 +43,9 @@ function AuthProvider({ children }: any) {
 
   const authApi = useMemo(() => {
     return {
-      login: (token: string) => {
+      login: async(token: string) => {
         const usr: JwtPayload | null | string = jwt.decode(token);
+        await opcClientConnect()
         Cookies.set('token', token);
 
         axiosInstance.interceptors.request.use(
