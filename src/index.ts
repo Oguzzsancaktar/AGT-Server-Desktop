@@ -6,9 +6,9 @@ import { app, ipcMain, BrowserWindow } from 'electron';
 // whether you're running in development or production).
 
 import { AuthProvider } from './AuthProvider'
-import { IPC_MESSAGES } from './constants'
-import { protectedResources, msalConfig } from './authConfig'
-import getGraphClient from './graph'
+import { IPC_MESSAGES } from './constants/ipcMessages'
+import { protectedResources, msalConfig } from './config/authConfig'
+import getGraphClient from './config/graph'
 
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
@@ -74,9 +74,17 @@ ipcMain.on(IPC_MESSAGES.LOGIN, async () => {
 
   await mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  console.log("authResponse from index", authResponse);
   mainWindow.webContents.send(IPC_MESSAGES.SEND_AUTH_RESPONSE, authResponse)
 })
+
+
+ipcMain.on(IPC_MESSAGES.GET_LOGGED_ACCOUNT, async () => {
+  const account = await authProvider.getAccount()
+
+  mainWindow.webContents.send(IPC_MESSAGES.TRIGGER_GET_LOGGED_ACCOUNT, account)
+})
+
+
 
 ipcMain.on(IPC_MESSAGES.LOGOUT, async () => {
   await authProvider.logout()

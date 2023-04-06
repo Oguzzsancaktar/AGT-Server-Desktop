@@ -1,0 +1,300 @@
+:root {
+  --darkBlue:#12356E;
+  --lightBlue:#0090E3;
+
+  --datkGray: #D7D7D9;
+  --lightGray: #F7F7F7;
+  --white:#FFFFFF;
+}
+
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+
+html{
+  font-size: calc(100vw / 1920 * 10) !important;
+}
+
+
+@media only screen and (max-width: 1600px) {
+  html {
+    font-size: calc(100vw / 1600 * 12) !important;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  html {
+    font-size: calc(100vw / 1400 * 9) !important;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: calc(100vw / 1000 * 12) !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: calc(100vw / 600 * 10) !important;
+  }
+}
+
+body {
+  background-color: var(--lightGray);
+	line-height: 1;
+
+
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* Globals. */
+.cursor-pointer{
+  cursor: pointer;
+}
+
+/* Layouts. */
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.items-center{
+  align-items: center;
+}
+
+.items-start{
+  align-items: flex-start;
+}
+
+.items-end{
+  align-items: flex-end;
+}
+
+.items-stretch{
+  align-items: stretch;
+}
+
+.justify-center{
+  justify-content: center;
+}
+
+.justify-between{
+  justify-content: space-between;
+}
+
+/*  Texts. */
+.text-center{
+  text-align: center;
+}
+
+.text-bold{
+  font-weight: bold;
+}
+
+.text-27{
+  font-size: 2.7rem;
+  line-height: 2rem;
+}
+
+.text-19{
+  font-size: 1.9rem;
+  line-height: 1.4rem;
+}
+/* Colors */
+
+.rounded{
+  border-radius: 6px;
+}
+.bordered{
+  border-radius: 6px;
+  border: 2px solid;
+}
+
+.border-darkBlue{
+  border-color: var(--darkBlue);
+}
+
+.border-lightBlue{
+  border-color: var(--lightBlue);
+}
+
+.border-darkGray{
+  border-color: var(--darkGray);
+}
+
+.border-lightGray{
+  border-color: var(--lightGray);
+}
+
+.border-white{
+  border-color: var(--white);
+}
+
+.bg-none{
+  background-color: transparent;
+}
+.bg-white{
+  background-color:  var(--white);
+}
+.bg-darkBlue{
+  background-color: var(--darkBlue);
+}
+
+.bg-lightBlue{
+  background-color: var(--lightBlue);
+}
+
+.bg-darkGray{
+  background-color: var(--darkGray);
+}
+
+.bg-lightGray{
+  background-color: var(--lightGray);
+}
+
+.text-white{
+  color: var(--white);
+}
+
+.text-darkBlue{
+  color: var(--darkBlue);
+}
+
+.text-lightBlue{
+  color: var(--lightBlue);
+}
+
+.text-darkGray{
+  color: var(--darkGray);
+}
+
+.text-lightGray{
+  color: var(--lightGray);
+}
+
+
+/* Sizes */
+.h-full{
+  height: 100%;
+}
+
+.w-full{
+  width: 100%;
+}
+
+.wrapper{
+  padding: 0 20px;
+}
+
+.container{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Vendors. */
+
+.bg-none .ant-input{
+  background-color: transparent;
+}
+.ant-input{
+  color: var(--white);
+}
+.ant-input::placeholder{
+  color: var(--lightGray);
+}
+.button-disable-before-button-wrapper::before{
+  display: none!important;
+}
+
+
+.ant-table-cell{
+  color: var(--darkBlue);
+}
+
+.ant-table-container,
+.ant-table.ant-table-fixed-header,
+.ant-spin-container,
+.ant-spin-nested-loading{
+  height: 100%;
+}
+/* Views */
+
+/*
+Login
+*/
+
+.login__container{
+  background-color: var(--lightGray);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__form{
+  align-items: center;
+  background-color: var(--darkBlue);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 6rem 8rem;
+  width: 65rem;
+  justify-content: center;
+}

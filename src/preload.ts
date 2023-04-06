@@ -14,9 +14,16 @@ contextBridge.exposeInMainWorld('renderer', {
   sendSignoutMessage: () => {
     ipcRenderer.send('LOGOUT')
   },
+  sendGetLoggedAccountMessage: () => {
+    ipcRenderer.send('GET_LOGGED_ACCOUNT')
+  },
+  getLoggedAccount: (callback: (account: any) => void) => {
+    ipcRenderer.on('TRIGGER_GET_LOGGED_ACCOUNT', (event, account) => {
+      callback(account)
+    })
+  },
   onAuthResponse: (callback: (authResponse: any) => void) => {
     ipcRenderer.on('SEND_AUTH_RESPONSE', (event, authResponse) => {
-      console.log("authResponse from preload", authResponse);
       callback(authResponse)
     })
   },
